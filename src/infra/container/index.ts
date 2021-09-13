@@ -1,10 +1,30 @@
-import awilix from 'awilix';
-import { RedisClient } from 'redis';
+import {
+  asValue,
+  AwilixContainer,
+  createContainer,
+  InjectionMode,
+} from 'awilix';
+import redis from 'redis';
 
-const container = awilix.createContainer();
+export type AppContainer = {
+  redis: redis.RedisClient;
+  subscriber: redis.RedisClient;
+};
 
-container.register({
-  subscriber: awilix.asValue(RedisClient),
-});
+export const setupContainer = async (): Promise<AwilixContainer> => {
+  const container = createContainer({
+    injectionMode: InjectionMode.PROXY,
+  });
 
-export { container };
+  container.register({
+    redis: asValue(redis),
+    subscriber: asValue(
+      redis.createClient({
+        host: 'localhost',
+        port: 6379,
+      }),
+    ),
+  });
+
+  return container;
+};
