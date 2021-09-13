@@ -1,4 +1,4 @@
-import { setupContainer } from './infra/container';
+import { setupContainer } from './infra/bootstrap/container';
 import { startRedis } from './infra/poller/RedisPoller';
 
 async function init() {
