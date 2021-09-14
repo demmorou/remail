@@ -6,6 +6,7 @@ import { config } from './infra/config/index';
 
 const init = async () => {
   const container = await setupContainer(config);
+
   await startRedis(container);
 };
 
