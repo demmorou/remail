@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/infra/main.ts"
+    "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/app.ts"
   },
   "dependencies": {
     "awilix": "^5.0.1",
