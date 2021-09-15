@@ -1,4 +1,4 @@
-import { RedisHandler } from 'adapters/handlers/redis/RedisHandler';
+import RedisHandler from 'adapters/handlers/redis/RedisHandler';
 import { AwilixContainer } from 'awilix';
 import { RedisClient } from 'redis';
 

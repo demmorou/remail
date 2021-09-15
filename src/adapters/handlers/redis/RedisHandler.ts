@@ -13,4 +13,4 @@ class RedisHandler {
   }
 }
 
-export { RedisHandler };
+export default RedisHandler;
