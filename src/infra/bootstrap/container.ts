@@ -3,11 +3,16 @@ import {
   AwilixContainer,
   createContainer,
   InjectionMode,
+  asClass,
 } from 'awilix';
 import redis from 'redis';
+
 import { Config } from '../config';
+import { RedisHandler } from '../../adapters/handlers/redis/RedisHandler';
 
 export type AppContainer = {
+  redisHandler: RedisHandler;
+
   redis: redis.RedisClient;
   subscriber: redis.RedisClient;
 };
@@ -20,6 +25,11 @@ export const setupContainer = async (
   });
 
   container.register({
+    /**
+     * TODO:
+     * Change to use the function loadModules
+     */
+    redisHandler: asClass(RedisHandler).singleton(),
     config: asValue(config),
   });
 
