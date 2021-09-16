@@ -16,7 +16,7 @@ export const startRedis = async (container: AwilixContainer) => {
   const redisHandler = container.resolve<RedisHandler>('redisHandler');
 
   subscriber.on('connect', () => {
-    console.log('Redis poller started');
+    console.log('Redis poller has been started');
   });
 
   subscriber.on('message', async (channel: string, message: string) => {
@@ -25,5 +25,13 @@ export const startRedis = async (container: AwilixContainer) => {
 
   subscriber.subscribe([Channels.SENDMAIL], () => {
     console.log('Subscribed');
+  });
+};
+
+export const quitRedisPoller = (container: AwilixContainer) => {
+  const subscriber = container.resolve<RedisClient>('subscriber');
+
+  subscriber.quit(() => {
+    console.log('Shutdown redis poller');
   });
 };
