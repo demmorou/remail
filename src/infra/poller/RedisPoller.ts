@@ -1,5 +1,6 @@
 import RedisHandler from 'adapters/handlers/redis/RedisHandler';
 import { AwilixContainer } from 'awilix';
+import { Logger } from 'pino';
 import { RedisClient } from 'redis';
 
 /**
@@ -11,12 +12,16 @@ export enum Channels {
   SENDMAIL = 'sendmail',
 }
 
+let subscriber: RedisClient = null;
+let logger: Logger = null;
+
 export const startRedis = async (container: AwilixContainer) => {
-  const subscriber = container.resolve<RedisClient>('subscriber');
+  subscriber = container.resolve<RedisClient>('subscriber');
+  logger = container.resolve<Logger>('logger');
   const redisHandler = container.resolve<RedisHandler>('redisHandler');
 
   subscriber.on('connect', () => {
-    console.log('Redis poller has been started');
+    logger.info('Redis poller has been started');
   });
 
   subscriber.on('message', async (channel: string, message: string) => {
@@ -24,14 +29,12 @@ export const startRedis = async (container: AwilixContainer) => {
   });
 
   subscriber.subscribe([Channels.SENDMAIL], () => {
-    console.log('Subscribed');
+    logger.info('Subscribed');
   });
 };
 
-export const quitRedisPoller = (container: AwilixContainer) => {
-  const subscriber = container.resolve<RedisClient>('subscriber');
-
+export const quitRedisPoller = () => {
   subscriber.quit(() => {
-    console.log('Shutdown redis poller');
+    logger.info('Shutdown redis poller');
   });
 };
