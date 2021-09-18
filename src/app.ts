@@ -1,15 +1,15 @@
 import 'dotenv/config';
-import logger from './infra/tools/log/logger';
 
-import { setupContainer } from './infra/bootstrap/container';
-import { config } from './infra/config/index';
-import { quitRedisPoller, startRedis } from './infra/poller/RedisPoller';
+import { setupContainer } from '~infra/bootstrap/container';
+import { config } from '~infra/config/index';
+import { quitRedisPoller, startRedis } from '~infra/poller/RedisPoller';
+import logger from '~infra/tools/log/logger';
 
-const shutdown = () => {
+const shutdown = (code = 0) => {
   quitRedisPoller();
 
   logger.info('Shutdown application');
-  process.exit(1);
+  process.exit(code);
 };
 
 const init = async () => {

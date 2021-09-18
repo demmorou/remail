@@ -8,10 +8,12 @@ import {
 } from 'awilix';
 import path from 'path';
 import redis from 'redis';
-import { Config } from '../config';
-import AppLogger from '../tools/log/logger';
-import RedisHandler from '../../adapters/handlers/redis/RedisHandler';
-import { Logger } from '../tools/log/types';
+
+import { Config } from '~infra/config';
+import AppLogger from '~infra/tools/log/logger';
+import { Logger } from '~infra/tools/log/types';
+
+import RedisHandler from '~adapters/handlers/redis/RedisHandler';
 
 export type AppContainer = {
   redisHandler: RedisHandler;

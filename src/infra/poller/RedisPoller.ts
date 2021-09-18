@@ -1,7 +1,8 @@
 import RedisHandler from 'adapters/handlers/redis/RedisHandler';
 import { AwilixContainer } from 'awilix';
 import { RedisClient } from 'redis';
-import { Logger } from '../tools/log/types';
+
+import { Logger } from '~infra/tools/log/types';
 
 /**
  * TODO:
@@ -15,7 +16,7 @@ export enum Channels {
 let subscriber: RedisClient = null;
 let logger: Logger = null;
 
-export const startRedis = async (container: AwilixContainer) => {
+export const startRedis = async (container: AwilixContainer): Promise<void> => {
   subscriber = container.resolve<RedisClient>('subscriber');
   logger = container.resolve<Logger>('logger');
   const redisHandler = container.resolve<RedisHandler>('redisHandler');
@@ -33,7 +34,7 @@ export const startRedis = async (container: AwilixContainer) => {
   });
 };
 
-export const quitRedisPoller = () => {
+export const quitRedisPoller = (): void => {
   subscriber.quit(() => {
     logger.info('Shutdown redis poller');
   });

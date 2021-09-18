@@ -1,4 +1,5 @@
 import pino from 'pino';
+
 import { Logger } from './types';
 
 const pinoLogger = pino({

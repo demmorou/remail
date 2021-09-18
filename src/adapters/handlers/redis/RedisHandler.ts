@@ -1,6 +1,6 @@
-import { AppContainer } from 'infra/bootstrap/container';
-import { Logger } from 'pino';
-import { Channels } from '../../../infra/poller/RedisPoller';
+import { AppContainer } from '~infra/bootstrap/container';
+import { Channels } from '~infra/poller/RedisPoller';
+import { Logger } from '~infra/tools/log/types';
 
 class RedisHandler {
   private logger: Logger;
@@ -14,7 +14,7 @@ class RedisHandler {
         this.logger.info(message);
         break;
       default:
-        console.log('default');
+        this.logger.info('default');
         break;
     }
   }
