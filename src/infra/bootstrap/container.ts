@@ -6,19 +6,19 @@ import {
   asClass,
   Lifetime,
 } from 'awilix';
-import pino from 'pino';
 import path from 'path';
 import redis from 'redis';
-import logger from '../tools/log/logger';
 import { Config } from '../config';
+import AppLogger from '../tools/log/logger';
 import RedisHandler from '../../adapters/handlers/redis/RedisHandler';
+import { Logger } from '../tools/log/types';
 
 export type AppContainer = {
   redisHandler: RedisHandler;
 
   redis: redis.RedisClient;
   subscriber: redis.RedisClient;
-  logger: pino.Logger;
+  logger: Logger;
 };
 
 export const setupContainer = async (
@@ -54,7 +54,7 @@ export const setupContainer = async (
 
   container.register({
     config: asValue(config),
-    logger: asValue(logger),
+    logger: asValue(AppLogger),
   });
 
   container.register({

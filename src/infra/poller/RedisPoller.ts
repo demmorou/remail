@@ -1,7 +1,7 @@
 import RedisHandler from 'adapters/handlers/redis/RedisHandler';
 import { AwilixContainer } from 'awilix';
-import { Logger } from 'pino';
 import { RedisClient } from 'redis';
+import { Logger } from '../tools/log/types';
 
 /**
  * TODO:
