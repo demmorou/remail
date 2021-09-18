@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/app.ts",
+    "build": "rimraf build; babel src --extensions \".js,.ts\" --out-dir build --copy-files --no-copy-ignored",
+    "dev": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn src/app.ts",
     "lint": "eslint src --ext .ts --fix"
   },
   "dependencies": {
@@ -12,9 +13,17 @@
     "dotenv": "^10.0.0",
     "pino": "^6.13.2",
     "pino-pretty": "^7.0.0",
-    "redis": "^3.1.2"
+    "redis": "^3.1.2",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-decorators": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-typescript": "^7.13.0",
     "@types/debug": "^4.1.7",
     "@types/node": "^16.7.11",
     "@types/pino": "^6.3.11",
@@ -22,15 +31,19 @@
     "@types/redis": "^2.8.32",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "^7.26.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import-helpers": "^1.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.2.1",
     "ts-node": "^10.2.1",
     "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^3.11.0",
     "typescript": "^4.4.2"
   }
 }

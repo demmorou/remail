@@ -15,6 +15,11 @@
     "forceConsistentCasingInFileNames": true,
     "rootDir": "./",
     "baseUrl": "./src",
-    "outDir": "./build"
+    "outDir": "./build",
+    "paths": {
+      "~adapters/*": ["adapters/*"],
+      "~infra/*": ["infra/*"],
+      "~interactors/*": ["interactors/*"]
+    }
   }
 }
