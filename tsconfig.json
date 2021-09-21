@@ -19,7 +19,7 @@
     "paths": {
       "~adapters/*": ["adapters/*"],
       "~infra/*": ["infra/*"],
-      "~interactors/*": ["interactors/*"]
+      "~useCases/*": ["useCases/*"]
     }
   }
 }

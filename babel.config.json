@@ -20,7 +20,7 @@
         "alias": {
           "~infra": "./src/infra",
           "~adapters": "./src/adapters",
-          "~interactors": "./src/interactors"
+          "~useCases": "./src/useCases"
         }
       }
     ]
