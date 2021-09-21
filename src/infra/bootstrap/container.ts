@@ -14,6 +14,7 @@ import AppLogger from '~infra/tools/log/logger';
 import { Logger } from '~infra/tools/log/types';
 
 import RedisHandler from '~adapters/handlers/redis/RedisHandler';
+import SendMail from '~useCases/SendMail/SendMail';
 
 export type AppContainer = {
   redisHandler: RedisHandler;
@@ -21,6 +22,8 @@ export type AppContainer = {
   redis: redis.RedisClient;
   subscriber: redis.RedisClient;
   logger: Logger;
+
+  sendMail: SendMail;
 };
 
 export const setupContainer = async (
@@ -46,13 +49,19 @@ export const setupContainer = async (
    * This lifetime works best for lightweight, stateless services.
    */
 
-  container.loadModules([`${baseDir}/adapters/handlers/**/*.{js,ts}`], {
-    resolverOptions: {
-      register: asClass,
-      lifetime: Lifetime.SINGLETON,
+  container.loadModules(
+    [
+      `${baseDir}/adapters/handlers/**/*.{js,ts}`,
+      `${baseDir}/useCases/**/*.{js,ts}`,
+    ],
+    {
+      resolverOptions: {
+        register: asClass,
+        lifetime: Lifetime.SINGLETON,
+      },
+      formatName: 'camelCase',
     },
-    formatName: 'camelCase',
-  });
+  );
 
   container.register({
     config: asValue(config),
