@@ -11,6 +11,7 @@
   "dependencies": {
     "awilix": "^5.0.1",
     "dotenv": "^10.0.0",
+    "nodemailer": "^6.6.3",
     "pino": "^6.13.2",
     "pino-pretty": "^7.0.0",
     "redis": "^3.1.2",
@@ -26,6 +27,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@types/debug": "^4.1.7",
     "@types/node": "^16.7.11",
+    "@types/nodemailer": "^6.4.4",
     "@types/pino": "^6.3.11",
     "@types/pino-pretty": "^4.7.1",
     "@types/redis": "^2.8.32",
