@@ -10,6 +10,8 @@ import path from 'path';
 import redis from 'redis';
 
 import { Config } from '~infra/config';
+import EtherealMailProvider from '~infra/providers/MailProvider/implementations/EtherealMailProvider';
+import IMailProvider from '~infra/providers/MailProvider/models/IMailProvider';
 import AppLogger from '~infra/tools/log/logger';
 import { Logger } from '~infra/tools/log/types';
 
@@ -24,6 +26,8 @@ export type AppContainer = {
   logger: Logger;
 
   sendMail: SendMail;
+
+  mailProvider: IMailProvider;
 };
 
 export const setupContainer = async (
@@ -71,6 +75,7 @@ export const setupContainer = async (
   container.register({
     redis: asValue(redis),
     subscriber: asValue(redis.createClient(config.redis)),
+    mailProvider: asClass(EtherealMailProvider),
   });
 
   return container;
