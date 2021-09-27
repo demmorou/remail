@@ -1,4 +1,5 @@
-export type LogMethod = (logData: string) => void;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export type LogMethod = (logData: any) => void;
 
 export type Logger = {
   debug: LogMethod;

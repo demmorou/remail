@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import pino from 'pino';
 
 import { Logger } from './types';
@@ -12,10 +13,10 @@ const pinoLogger = pino({
 });
 
 const AppLogger: Logger = {
-  debug: (logData: string) => pinoLogger.debug(logData),
-  info: (logData: string) => pinoLogger.info(logData),
-  warn: (logData: string) => pinoLogger.warn(logData),
-  error: (logData: string) => pinoLogger.error(logData),
+  debug: (logData: any) => pinoLogger.debug(logData),
+  info: (logData: any) => pinoLogger.info(logData),
+  warn: (logData: any) => pinoLogger.warn(logData),
+  error: (logData: any) => pinoLogger.error(logData),
 };
 
 export default AppLogger;

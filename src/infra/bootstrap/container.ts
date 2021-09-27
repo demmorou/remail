@@ -12,6 +12,8 @@ import redis from 'redis';
 import { Config } from '~infra/config';
 import EtherealMailProvider from '~infra/providers/MailProvider/implementations/EtherealMailProvider';
 import IMailProvider from '~infra/providers/MailProvider/models/IMailProvider';
+import BullQueueProvider from '~infra/providers/QueueProvider/implementations/BullQueueProvider';
+import IQueueProvider from '~infra/providers/QueueProvider/models/IQueueProvider';
 import AppLogger from '~infra/tools/log/logger';
 import { Logger } from '~infra/tools/log/types';
 
@@ -24,10 +26,12 @@ export type AppContainer = {
   redis: redis.RedisClient;
   subscriber: redis.RedisClient;
   logger: Logger;
+  config: Config;
 
   sendMail: SendMail;
 
   mailProvider: IMailProvider;
+  queueProvider: IQueueProvider;
 };
 
 export const setupContainer = async (
@@ -76,6 +80,7 @@ export const setupContainer = async (
     redis: asValue(redis),
     subscriber: asValue(redis.createClient(config.redis)),
     mailProvider: asClass(EtherealMailProvider),
+    queueProvider: asClass(BullQueueProvider),
   });
 
   return container;
