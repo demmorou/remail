@@ -1,10 +1,11 @@
+import SendMailDTO from '~infra/providers/MailProvider/dtos/SendMailDTO';
+
 export interface IJob {
-  data: string;
+  data: SendMailDTO;
 }
 
 interface IMailQueueProvider {
-  addJob(job: string): Promise<void>;
-  addManyJobs(jobs: string[]): Promise<void>;
+  addJob(job: IJob): Promise<void>;
   process(processFunction: (job: IJob) => Promise<void>): void;
 }
 

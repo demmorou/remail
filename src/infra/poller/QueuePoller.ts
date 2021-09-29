@@ -7,7 +7,7 @@ import IMailProvider from '~infra/providers/MailProvider/models/IMailProvider';
 import IMailQueueProvider from '~infra/providers/QueueProvider/models/IMailQueueProvider';
 import { Logger } from '~infra/tools/log/types';
 
-const worker = async (container: AwilixContainer): Promise<void> => {
+const queuePoller = async (container: AwilixContainer): Promise<void> => {
   const mailQueueProvider =
     container.resolve<IMailQueueProvider>('mailQueueProvider');
   const mailProvider = container.resolve<IMailProvider>('mailProvider');
@@ -37,5 +37,5 @@ const worker = async (container: AwilixContainer): Promise<void> => {
 (async () => {
   const container = await setupContainer(config);
 
-  await worker(container);
+  await queuePoller(container);
 })();

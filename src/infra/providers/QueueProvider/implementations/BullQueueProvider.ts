@@ -3,9 +3,10 @@ import { Queue, Processor, Worker, QueueScheduler } from 'bullmq';
 
 import { AppContainer } from '~infra/bootstrap/container';
 import { Config } from '~infra/config';
+import SendMailDTO from '~infra/providers/MailProvider/dtos/SendMailDTO';
 import { Logger } from '~infra/tools/log/types';
 
-import IMailQueueProvider from '../models/IMailQueueProvider';
+import IMailQueueProvider, { IJob } from '../models/IMailQueueProvider';
 
 class BullQueueProvider implements IMailQueueProvider {
   private logger: Logger;
@@ -25,37 +26,20 @@ class BullQueueProvider implements IMailQueueProvider {
       defaultJobOptions: {
         removeOnComplete: true,
         attempts: 5,
-        backoff: {
-          type: 'exponential',
-          delay: 5000,
-        },
       },
     });
   }
 
-  async addManyJobs(jobs: string[]): Promise<void> {
-    const parsedJobs = jobs.map((jobData) => {
-      return { name: 'message', data: jobData };
-    });
-
-    await this.queue.addBulk(parsedJobs);
-  }
-
-  async addJob(job: string): Promise<void> {
+  async addJob(job: IJob): Promise<void> {
     await this.queue.add('message', job);
   }
 
-  process(processFunction: Processor<string>): void {
+  process(processFunction: Processor<SendMailDTO>): void {
     new Worker('mail-queue', processFunction, {
       connection: {
         host: this.config.redis.host,
         password: this.config.redis.password,
         port: this.config.redis.port,
-      },
-      concurrency: 100,
-      limiter: {
-        max: 400,
-        duration: 1000,
       },
     });
 

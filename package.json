@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf build; babel src --extensions \".js,.ts\" --out-dir build --copy-files --no-copy-ignored",
     "dev": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn src/app.ts",
-    "dev:queue": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn src/infra/queue/worker.ts",
+    "dev:queue": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn src/infra/poller/QueuePoller.ts",
     "lint": "eslint src --ext .ts --fix"
   },
   "dependencies": {
