@@ -6,11 +6,12 @@
   "scripts": {
     "build": "rimraf build; babel src --extensions \".js,.ts\" --out-dir build --copy-files --no-copy-ignored",
     "dev": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn src/app.ts",
+    "dev:queue": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn src/infra/queue/worker.ts",
     "lint": "eslint src --ext .ts --fix"
   },
   "dependencies": {
     "awilix": "^5.0.1",
-    "bull": "^3.29.2",
+    "bullmq": "^1.48.2",
     "dotenv": "^10.0.0",
     "handlebars": "^4.7.7",
     "nodemailer": "^6.6.3",
@@ -27,7 +28,6 @@
     "@babel/plugin-proposal-decorators": "^7.14.2",
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-typescript": "^7.13.0",
-    "@types/bull": "^3.15.4",
     "@types/debug": "^4.1.7",
     "@types/handlebars": "^4.1.0",
     "@types/node": "^16.7.11",
